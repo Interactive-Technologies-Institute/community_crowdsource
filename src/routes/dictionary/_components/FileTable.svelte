@@ -6,6 +6,7 @@
     import PencilCircleFill from '$lib/img/pencil_circle_fill.svelte';
     import * as Table from '$lib/components/ui/table';
     import type { Sign } from '@/types/types';
+	import { goto } from '$app/navigation';
 
     export let data: { signs: Sign[] } = { signs: [] };
     export let theme_options: any;
@@ -44,7 +45,7 @@
         }
     }
 
-    console.log(data.signs)
+    //console.log(data.signs)
 </script>
 <div class="px-10">
     <Table.Root>
@@ -63,7 +64,7 @@
         <Table.Body>
             {#each $ordered_data as sign}
                 
-                    <Table.Row class="cursor-pointer content-center">
+                    <Table.Row class="cursor-pointer content-center" on:click={() => goto(`/dictionary/anotate/${sign.id}`)}>
                         <Table.Cell class="font-medium"> {sign.name} </Table.Cell>
                         <Table.Cell> {sign.theme} </Table.Cell>
                         <Table.Cell>{new Date(sign.created_at).toLocaleDateString()}</Table.Cell>
@@ -78,9 +79,6 @@
                             {/if}
                         </Table.Cell>
                     </Table.Row>
-                
-                   
-                
             {/each}
         </Table.Body>
     </Table.Root>

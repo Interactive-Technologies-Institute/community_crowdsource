@@ -100,3 +100,11 @@ export type Sign = {
 	video: string;
 	written_annotation?: string[] | null;
 };
+
+export type AnnotationArray = {
+	configuration: string[];
+	movement: string[];
+	location: string[];
+	orientation: string[];
+	expression: string[];
+};
