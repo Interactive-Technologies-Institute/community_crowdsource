@@ -54,5 +54,16 @@
 				Map
 			</a>
 		</FeatureWrapper>
+		<FeatureWrapper feature="dictionary">
+			<a
+				href="/dictionary"
+				class={cn(
+					'transition-colors hover:text-foreground/80',
+					$page.url.pathname.startsWith('/dictionary') ? 'text-foreground' : 'text-foreground/60'
+				)}
+			>
+				Dictionary
+			</a>
+		</FeatureWrapper>
 	</nav>
 </div>

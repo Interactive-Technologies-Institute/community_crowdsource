@@ -724,7 +724,7 @@ export type Database = {
       }
     }
     Enums: {
-      feature: "howtos" | "events" | "map" | "academy"
+      feature: "dictionary" | "howtos" | "events" | "map" | "academy"
       how_to_difficulty: "easy" | "medium" | "hard"
       how_to_duration: "short" | "medium" | "long"
       moderation_status:
