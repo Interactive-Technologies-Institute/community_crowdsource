@@ -3,20 +3,29 @@ import { error } from "@sveltejs/kit";
 import { setFlash } from "sveltekit-flash-message/server";
 
 export const load = async (event) => {
-    async function getSigns(): Promise<Sign[]> {
-        const { data: signs, error: signsError } = await event.locals.supabase
-        .from('signs')
-        .select('*');
+    async function getSignById(id: string): Promise<Sign | null> {
+        const { data: sign, error: signError } = await event.locals.supabase
+            .from('signs')
+            .select('*')
+            .eq('id', id)
+            .single();
 
-        if (signsError) {
-            const errorMessage = 'Error fetching signs, please try again later.';
-			setFlash({ type: 'error', message: errorMessage }, event.cookies);
-			return error(500, errorMessage);
+        if (signError) {
+            const errorMessage = `Error fetching sign with ID ${id}, please try again later.`;
+            setFlash({ type: 'error', message: errorMessage }, event.cookies);
+            throw error(500, errorMessage);
         }
-        return signs;
+        return sign;
+    }
+
+    const signId = event.params.signId;
+    let specificSign = null;
+    
+    if (signId) {
+        specificSign = await getSignById(signId);
     }
 
     return {
-        signs: await getSigns()
+        sign: specificSign
     };
 };

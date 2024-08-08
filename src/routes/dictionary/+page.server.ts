@@ -15,8 +15,8 @@ export const load = async (event) => {
         }
         return signs;
     }
-
+    
     return {
-        signs: await getSigns()
+        signs: await getSigns(),
     };
 };
