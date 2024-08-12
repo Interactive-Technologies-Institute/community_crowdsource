@@ -1,4 +1,4 @@
-import type { Branding, Feature, UserProfile, Sign } from '@/types/types';
+import type { Branding, Feature, UserProfile } from '@/types/types';
 import { loadFlash } from 'sveltekit-flash-message/server';
 import type { LayoutServerLoad } from './$types';
 
@@ -26,17 +26,6 @@ export const load: LayoutServerLoad = loadFlash(
 			radius: 0.5,
 		};
 
-		let signs: Sign[] = [];
-        const { data: signsData, error: signsError } = await supabase
-            .from('signs')
-            .select('*');
-
-        if (signsError) {
-            console.error('Error fetching signs:', signsError);
-        } else {
-            signs = signsData as Sign[];
-        }
-
 		const { data: brandingData } = await supabase.from('branding').select().single();
 		if (brandingData) branding = brandingData;
 
@@ -46,7 +35,7 @@ export const load: LayoutServerLoad = loadFlash(
 			session,
 			user,
 			profile,
-			signs
+			
 		};
 	}
 );

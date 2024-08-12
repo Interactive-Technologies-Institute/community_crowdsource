@@ -3,7 +3,7 @@
    
 </script>
 
-<div class="flex items-center justify-center min-h-scree">
+<div class="flex items-center justify-center min-h-scree py-20">
     <div class="text-center space-y-4">
         {#if data.sign}
             <h1 class="text-3xl font-bold">Sign Information</h1>
