@@ -10,7 +10,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
     if (searchQuery) {
         // Adjust the column name to match your schema
-        query = query.ilike('name', `%${searchQuery}%`);
+        query = query.or(`name.ilike.%${searchQuery}%,theme.cs.{${searchQuery}}`);
     }
 
     try {
