@@ -4,6 +4,7 @@
     import CheckmarkCircle from '$lib/img/checkmark_circle.svelte';
     import CheckmarkCircleFill from '$lib/img/checkmark_circle_fill.svelte';
     import PencilCircleFill from '$lib/img/pencil_circle_fill.svelte';
+    import Tags from "svelte-tags-input";
     import * as Table from '$lib/components/ui/table';
     import type { Sign } from '@/types/types';
 	import { goto } from '$app/navigation';
@@ -66,7 +67,12 @@
                 
                     <Table.Row class="cursor-pointer content-center" on:click={() => goto(`/dictionary/anotate/${sign.id}`)}>
                         <Table.Cell class="font-medium"> {sign.name} </Table.Cell>
-                        <Table.Cell> {sign.theme} </Table.Cell>
+                        <Table.Cell> 
+                            <Tags
+                                readonly={true},
+                                tags = {sign.theme}    
+                            /> 
+                        </Table.Cell>
                         <Table.Cell>{new Date(sign.created_at).toLocaleDateString()}</Table.Cell>
                         <Table.Cell>{new Date(sign.last_changed).toLocaleDateString()}</Table.Cell>
                         <Table.Cell >

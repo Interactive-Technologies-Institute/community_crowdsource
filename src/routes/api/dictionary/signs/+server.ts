@@ -17,13 +17,11 @@ export const GET: RequestHandler = async ({ url, locals }) => {
         const { data: signs, error } = await query;
 
         if (error) {
-            console.error('Error fetching signs:', error);
             return json({ error: 'Error fetching signs' }, { status: 500 });
         }
 
         return json({ signs });
     } catch (err) {
-        console.error('Unexpected error:', err);
         return json({ error: 'Unexpected error' }, { status: 500 });
     }
 };
