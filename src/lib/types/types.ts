@@ -108,3 +108,14 @@ export type AnnotationArray = {
 	orientation: string[];
 	expression: string[];
 };
+
+export type Parameter = {
+	id: number;
+	type: string;
+	code: string;
+	name: string | null;
+	is_parent: boolean;
+	children: string[] | null;
+	parent: string | null;
+	image: string | null;
+};

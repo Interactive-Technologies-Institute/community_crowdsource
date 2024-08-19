@@ -65,7 +65,7 @@
         <Table.Body>
             {#each $ordered_data as sign}
                 
-                    <Table.Row class="cursor-pointer content-center" on:click={() => goto(`/dictionary/anotate/${sign.id}`)}>
+                    <Table.Row class="cursor-pointer content-center" on:click={() => goto(`/dictionary/sign/${sign.id}`)}>
                         <Table.Cell class="font-medium"> {sign.name} </Table.Cell>
                         <Table.Cell> 
                             <Tags
