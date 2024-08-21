@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { themes } from '@/themes';
 
-    export let data;
+	export let data;
 </script>
 
 {#each data.parameters as parameters}
-    {parameters.code}
+	{parameters.code}
 {/each}
-

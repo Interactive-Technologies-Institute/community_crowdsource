@@ -88,14 +88,14 @@ export type ModerationInfo = {
 
 export type Sign = {
 	annotated: boolean;
-	annotation?: string | null ;
+	annotation?: string | null;
 	annotation_array: number[];
 	created_at: string;
 	id: number;
 	is_annotated: number;
 	last_changed: string;
 	name: string;
-	selected: boolean 
+	selected: boolean;
 	theme: string[];
 	video: string;
 	written_annotation?: string[] | null;

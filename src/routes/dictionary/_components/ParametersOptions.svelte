@@ -2,8 +2,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import ScrollArea from '@/components/ui/scroll-area/scroll-area.svelte';
 	import { type Writable } from 'svelte/store';
-	import { toast } from "svelte-sonner";
-
+	import { toast } from 'svelte-sonner';
 
 	type AnnotationArray = {
 		configuration: any[];
@@ -11,80 +10,77 @@
 		location: any[];
 		orientation: any[];
 		expression: any[];
-	}
+	};
 
 	export let data: any;
 	export let currentTab: String;
-	export let anotationArray: AnnotationArray
-	export let isParSelected :  Writable<Map<any, boolean>>
+	export let anotationArray: AnnotationArray;
+	export let isParSelected: Writable<Map<any, boolean>>;
 	export let signsAnotation = new Map<number, AnnotationArray>();
-	export let sign : any;
-	export let exist_changes : boolean
-	
+	export let sign: any;
+	export let exist_changes: boolean;
 
-	let open = false
+	let open = false;
 
-
-	data.parameters.forEach((parameter : any) => {
-		if(parameter.is_parent){
-
+	data.parameters.forEach((parameter: any) => {
+		if (parameter.is_parent) {
 		}
 	});
 
-	
 	export function updateSelectedState(id: any, isSelected: boolean) {
-    isParSelected.update(map => {
-        const newMap = new Map(map);
-        newMap.set(id, isSelected);
-        return newMap;
-    });
+		isParSelected.update((map) => {
+			const newMap = new Map(map);
+			newMap.set(id, isSelected);
+			return newMap;
+		});
 	}
 
-	function useToast(message: number){
-
+	function useToast(message: number) {
 		open = false;
 
-		if(message == 0){
+		if (message == 0) {
 			toast('A editar nome e temas', {
-			action: {
-				label: 'Ok',
-				onClick: () => {}
-			},})
+				action: {
+					label: 'Ok',
+					onClick: () => {},
+				},
+			});
 		} else if (message == 1) {
 			toast('Alterações guardadas!', {
-			action: {
-				label: 'Ok',
-				onClick: () => reloadPage()
-			},})
-		} else if (message == 2){
+				action: {
+					label: 'Ok',
+					onClick: () => reloadPage(),
+				},
+			});
+		} else if (message == 2) {
 			toast('Tem anotações por guardar!', {
-			action: {
-				label: 'Ok',
-				onClick: () => {}
-			},})
-		} else if (message == 3){
+				action: {
+					label: 'Ok',
+					onClick: () => {},
+				},
+			});
+		} else if (message == 3) {
 			toast('Anotação guardada!', {
-			action: {
-				label: 'Ok',
-				onClick: () => reloadPage()
-			},})
+				action: {
+					label: 'Ok',
+					onClick: () => reloadPage(),
+				},
+			});
 		}
 	}
 
-	function getElementByCode(código : any) {
-    	return data.parameters.find((item: { código: any; }) => item.código === código);
+	function getElementByCode(código: any) {
+		return data.parameters.find((item: { código: any }) => item.código === código);
 	}
 
-	function getParameterById(id : any) {
-        return data.parameters.find((item: { id: any; }) => item.id === id);
-    }
+	function getParameterById(id: any) {
+		return data.parameters.find((item: { id: any }) => item.id === id);
+	}
 
-	function selectParameter(id: any, tipo: any){
-
+	function selectParameter(id: any, tipo: any) {
 		let isSelected = $isParSelected.get(id);
-		
-		updateSelectedState(id, !isSelected)	
 
+		updateSelectedState(id, !isSelected);
 
 		const updateAnnotationArray = (type: keyof AnnotationArray, id: any) => {
 			if (!isSelected) {
@@ -97,70 +93,71 @@
 				}
 				exist_changes = true;
 			} else {
-				anotationArray[type] = anotationArray[type].filter(e => e !== id);
+				anotationArray[type] = anotationArray[type].filter((e) => e !== id);
 				if (!exist_changes) {
 					useToast(2);
 				}
 				exist_changes = true;
 			}
 		};
-		
+
 		switch (tipo) {
-			case "configuracao":
+			case 'configuracao':
 				updateAnnotationArray('configuration', id);
 				break;
-			case "movimento":
+			case 'movimento':
 				updateAnnotationArray('movement', id);
 				break;
-			case "localizacao":
+			case 'localizacao':
 				updateAnnotationArray('location', id);
 				break;
-			case "orientacao":
+			case 'orientacao':
 				updateAnnotationArray('orientation', id);
 				break;
-			case "expressao facial":
+			case 'expressao facial':
 				updateAnnotationArray('expression', id);
 				break;
 		}
 	}
-	
 
 	function reloadPage() {
-    	window.location.reload();
-    }
-
-	
+		window.location.reload();
+	}
 </script>
+
 <ScrollArea class="flex h-[22rem] pt-4">
 	<div class="grid grid-cols-3 gap-4">
 		{#each data.parameters as par}
-			{#if par.is_parent && par.tipo == currentTab}  
+			{#if par.is_parent && par.tipo == currentTab}
 				{#if par.children.length == 0}
 					<button on:click={() => selectParameter(par.id, par.tipo)}>
 						{#if $isParSelected.get(par.id)}
-							<Card.Root class="flex flex-col items-center justify-center w-96 h-max gap-3 pt-2" style="border: 2px solid #0096FF;">
-									<Card.Content class="flex flex-col gap-2">
-										<div class="flex flex-col items-center justify-center">
-											{#if par.tipo == "configuracao"}
-												<img class="flex w-14" src={par.image} alt=""/>
-												{par.código}
-											{:else if par.image == null}
-												{#if par.nome !=null}
-													{par.nome}
-													{par.código}
-												{:else}
-													{par.código}
-												{/if}
-											{/if}
-										</div>
-									</Card.Content>
-								</Card.Root>
-						{:else}
-							<Card.Root class="flex flex-col items-center justify-center w-96 h-auto gap-3 pt-2">
+							<Card.Root
+								class="flex h-max w-96 flex-col items-center justify-center gap-3 pt-2"
+								style="border: 2px solid #0096FF;"
+							>
 								<Card.Content class="flex flex-col gap-2">
 									<div class="flex flex-col items-center justify-center">
-										{#if par.tipo == "configuracao"}
-											<img class="flex w-14" src={par.image} alt=""/>
+										{#if par.tipo == 'configuracao'}
+											<img class="flex w-14" src={par.image} alt="" />
+											{par.código}
+										{:else if par.image == null}
+											{#if par.nome != null}
+												{par.nome}
+												{par.código}
+											{:else}
+												{par.código}
+											{/if}
+										{/if}
+									</div>
+								</Card.Content>
+							</Card.Root>
+						{:else}
+							<Card.Root class="flex h-auto w-96 flex-col items-center justify-center gap-3 pt-2">
+								<Card.Content class="flex flex-col gap-2">
+									<div class="flex flex-col items-center justify-center">
+										{#if par.tipo == 'configuracao'}
+											<img class="flex w-14" src={par.image} alt="" />
 											{par.código}
 										{:else if par.image == null}
 											{#if par.nome != null}
@@ -177,35 +174,38 @@
 					</button>
 				{:else}
 					<Card.Root>
-						<Card.Content class="flex flex-col items-center justify-center w-96 h-fit gap-3 pt-2">
+						<Card.Content class="flex h-fit w-96 flex-col items-center justify-center gap-3 pt-2">
 							<button on:click={() => selectParameter(par.id, par.tipo)}>
 								{#if $isParSelected.get(par.id)}
-									<Card.Root class="flex items-center justify-center aspect-square w-32" style="border: 2px solid #0096FF;">
-											<Card.Content class="flex flex-col gap-2">
-												<div class="flex flex-col items-center justify-center">
-													{#if par.tipo == "configuracao"}
-														<img class="flex w-14" src={par.image} alt=""/>
-														{par.código}
-													{:else if par.image == null}
-														{#if par.nome !=null}
-															{par.nome}
-															{par.código}
-														{:else}
-															{par.código}
-														{/if}
-													{/if}
-												</div>
-											</Card.Content>
-										</Card.Root>
-								{:else}
-									<Card.Root class="flex items-center justify-center aspect-square w-32">
+									<Card.Root
+										class="flex aspect-square w-32 items-center justify-center"
+										style="border: 2px solid #0096FF;"
+									>
 										<Card.Content class="flex flex-col gap-2">
 											<div class="flex flex-col items-center justify-center">
-												{#if par.tipo == "configuracao"}
-													<img class="flex w-14" src={par.image} alt=""/>
+												{#if par.tipo == 'configuracao'}
+													<img class="flex w-14" src={par.image} alt="" />
 													{par.código}
 												{:else if par.image == null}
-													{#if par.nome !=null}
+													{#if par.nome != null}
+														{par.nome}
+														{par.código}
+													{:else}
+														{par.código}
+													{/if}
+												{/if}
+											</div>
+										</Card.Content>
+									</Card.Root>
+								{:else}
+									<Card.Root class="flex aspect-square w-32 items-center justify-center">
+										<Card.Content class="flex flex-col gap-2">
+											<div class="flex flex-col items-center justify-center">
+												{#if par.tipo == 'configuracao'}
+													<img class="flex w-14" src={par.image} alt="" />
+													{par.código}
+												{:else if par.image == null}
+													{#if par.nome != null}
 														{par.nome}
 														{par.código}
 													{:else}
@@ -222,20 +222,28 @@
 								<div class="grid grid-cols-3 gap-4">
 									{#each par.children as child}
 										{#if child != null}
-											<button on:click={() => selectParameter(getElementByCode(child).id, getElementByCode(child).tipo)}>
+											<button
+												on:click={() =>
+													selectParameter(getElementByCode(child).id, getElementByCode(child).tipo)}
+											>
 												{#if $isParSelected.get(getElementByCode(child).id)}
-													<Card.Root class="flex flex-col items-center justify-center aspect-square w-28"  style="border: 2px solid #0096FF;">
+													<Card.Root
+														class="flex aspect-square w-28 flex-col items-center justify-center"
+														style="border: 2px solid #0096FF;"
+													>
 														<Card.Content>
-															<img class="flex w-14" src={getElementByCode(child).image} alt=""/>
+															<img class="flex w-14" src={getElementByCode(child).image} alt="" />
 															<div class="flex text-xs">
 																{child}
 															</div>
 														</Card.Content>
 													</Card.Root>
 												{:else}
-													<Card.Root class="flex flex-col items-center justify-center aspect-square w-28">
+													<Card.Root
+														class="flex aspect-square w-28 flex-col items-center justify-center"
+													>
 														<Card.Content>
-															<img class="flex w-14" src={getElementByCode(child).image} alt=""/>
+															<img class="flex w-14" src={getElementByCode(child).image} alt="" />
 															<div class="flex text-xs">
 																{child}
 															</div>
@@ -253,5 +261,4 @@
 			{/if}
 		{/each}
 	</div>
-
 </ScrollArea>

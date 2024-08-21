@@ -78,7 +78,9 @@
 						on:click={() => (open = false)}
 						class={cn(
 							'transition-colors hover:text-foreground/80',
-							$page.url.pathname.startsWith('/dictionary') ? 'text-foreground' : 'text-foreground/60'
+							$page.url.pathname.startsWith('/dictionary')
+								? 'text-foreground'
+								: 'text-foreground/60'
 						)}
 					>
 						Dictionary

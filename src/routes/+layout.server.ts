@@ -35,7 +35,6 @@ export const load: LayoutServerLoad = loadFlash(
 			session,
 			user,
 			profile,
-			
 		};
 	}
 );
