@@ -11,6 +11,8 @@
 	import { ThumbsUp } from 'lucide-svelte';
 	import { ThumbsDown } from 'lucide-svelte';
 	import { MessageSquareText } from 'lucide-svelte';
+
+	console.log(data);
 </script>
 
 <div class="py-5">
@@ -37,29 +39,6 @@
 									Como o fazer
 								</Accordion.Trigger>
 								<Accordion.Content>
-									<div class="mx-auto flex max-w-xs space-x-4">
-										<div>
-											<img
-												class="rounded-md"
-												src="https://exvhkaqgrwffbtpuoyaf.supabase.co/storage/v1/object/public/Parameters/Configuration/1OF-c.svg?t=2024-08-06T14%3A15%3A39.854Z"
-												alt="image description"
-											/>
-										</div>
-										<div>
-											<img
-												class="rounded-md"
-												src="https://exvhkaqgrwffbtpuoyaf.supabase.co/storage/v1/object/public/Parameters/Configuration/1OF-c.svg?t=2024-08-06T14%3A15%3A39.854Z"
-												alt="image description"
-											/>
-										</div>
-										<div>
-											<img
-												class="rounded-md"
-												src="https://exvhkaqgrwffbtpuoyaf.supabase.co/storage/v1/object/public/Parameters/Configuration/1OF-c.svg?t=2024-08-06T14%3A15%3A39.854Z"
-												alt="image description"
-											/>
-										</div>
-									</div>
 									<div>
 										<video class="mx-auto aspect-video rounded-lg pt-2" controls>
 											<track kind="captions" />

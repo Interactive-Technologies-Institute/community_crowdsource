@@ -551,6 +551,7 @@ export type Database = {
           name: string
           selected: boolean
           theme: string[]
+          user_id: string
           video: string
           written_annotation: string[] | null
         }
@@ -565,6 +566,7 @@ export type Database = {
           name: string
           selected: boolean
           theme: string[]
+          user_id: string
           video: string
           written_annotation?: string[] | null
         }
@@ -579,10 +581,19 @@ export type Database = {
           name?: string
           selected?: boolean
           theme?: string[]
+          user_id?: string
           video?: string
           written_annotation?: string[] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "signs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

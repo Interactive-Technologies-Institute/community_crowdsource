@@ -13,6 +13,7 @@ export const load = async (event) => {
 			setFlash({ type: 'error', message: errorMessage }, event.cookies);
 			return error(500, errorMessage);
 		}
+
 		return signs;
 	}
 

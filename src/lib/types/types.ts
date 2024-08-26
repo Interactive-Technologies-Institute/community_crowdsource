@@ -99,6 +99,7 @@ export type Sign = {
 	theme: string[];
 	video: string;
 	written_annotation?: string[] | null;
+	user_id: string;
 };
 
 export type AnnotationArray = {

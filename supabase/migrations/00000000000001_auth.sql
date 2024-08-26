@@ -15,7 +15,10 @@ create type public.user_permission as enum (
 	'map.moderate',
 	'features.update',
 	'branding.update',
-	'user_types.update'
+	'user_types.update',
+	'signs.create',
+	'signs.update',
+	'signs.delete'
 );
 create type public.user_role as enum ('user', 'moderator', 'admin');
 create table public.user_roles (
@@ -132,6 +135,9 @@ values ('user', 'howtos.create'),
 	('user', 'map.create'),
 	('user', 'map.update'),
 	('user', 'map.delete'),
+	('user', 'signs.create'),
+	('user', 'signs.update'),
+	('user', 'signs.delete'),
 	('moderator', 'howtos.create'),
 	('moderator', 'howtos.update'),
 	('moderator', 'howtos.delete'),
@@ -144,6 +150,9 @@ values ('user', 'howtos.create'),
 	('moderator', 'map.update'),
 	('moderator', 'map.delete'),
 	('moderator', 'map.moderate'),
+	('moderator', 'signs.create'),
+	('moderator', 'signs.update'),
+	('moderator', 'signs.delete'),
 	('admin', 'howtos.create'),
 	('admin', 'howtos.update'),
 	('admin', 'howtos.delete'),
@@ -157,4 +166,7 @@ values ('user', 'howtos.create'),
 	('admin', 'map.delete'),
 	('admin', 'map.moderate'),
 	('admin', 'features.update'),
-	('admin', 'branding.update');
+	('admin', 'branding.update'),
+	('admin', 'signs.create'),
+	('admin', 'signs.update'),
+	('admin', 'signs.delete');
