@@ -515,6 +515,39 @@ export type Database = {
           },
         ]
       }
+      parameters: {
+        Row: {
+          children: string[] | null
+          code: string
+          id: number
+          image: string | null
+          is_parent: boolean
+          name: string | null
+          parent: string | null
+          type: string
+        }
+        Insert: {
+          children?: string[] | null
+          code: string
+          id?: number
+          image?: string | null
+          is_parent: boolean
+          name?: string | null
+          parent?: string | null
+          type: string
+        }
+        Update: {
+          children?: string[] | null
+          code?: string
+          id?: number
+          image?: string | null
+          is_parent?: boolean
+          name?: string | null
+          parent?: string | null
+          type?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           description: string
@@ -570,6 +603,122 @@ export type Database = {
           role?: Database["public"]["Enums"]["user_role"]
         }
         Relationships: []
+      }
+      signs: {
+        Row: {
+          annotated: boolean
+          annotation: string | null
+          annotation_array: number[]
+          created_at: string
+          fts: unknown | null
+          id: number
+          is_annotated: number
+          last_changed: string
+          name: string
+          selected: boolean
+          theme: string[]
+          user_id: string
+          video: string
+          written_annotation: string[] | null
+        }
+        Insert: {
+          annotated: boolean
+          annotation?: string | null
+          annotation_array: number[]
+          created_at?: string
+          fts?: unknown | null
+          id?: number
+          is_annotated: number
+          last_changed?: string
+          name: string
+          selected: boolean
+          theme: string[]
+          user_id: string
+          video: string
+          written_annotation?: string[] | null
+        }
+        Update: {
+          annotated?: boolean
+          annotation?: string | null
+          annotation_array?: number[]
+          created_at?: string
+          fts?: unknown | null
+          id?: number
+          is_annotated?: number
+          last_changed?: string
+          name?: string
+          selected?: boolean
+          theme?: string[]
+          user_id?: string
+          video?: string
+          written_annotation?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "signs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      signs_interested: {
+        Row: {
+          id: number
+          inserted_at: string
+          sign_id: number
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          inserted_at?: string
+          sign_id: number
+          user_id: string
+        }
+        Update: {
+          id?: number
+          inserted_at?: string
+          sign_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signs_interested_sign_id_fkey"
+            columns: ["sign_id"]
+            isOneToOne: false
+            referencedRelation: "signs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "signs_interested_sign_id_fkey"
+            columns: ["sign_id"]
+            isOneToOne: false
+            referencedRelation: "signs_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "signs_interested_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "signs_interested_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles_view"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -747,6 +896,79 @@ export type Database = {
           },
         ]
       }
+      signs_tags: {
+        Row: {
+          count: number | null
+          tag: string | null
+        }
+        Relationships: []
+      }
+      signs_view: {
+        Row: {
+          annotated: boolean | null
+          annotation: string | null
+          annotation_array: number[] | null
+          created_at: string | null
+          fts: unknown | null
+          id: number | null
+          is_annotated: number | null
+          last_changed: string | null
+          name: string | null
+          selected: boolean | null
+          theme: string[] | null
+          user_id: string | null
+          video: string | null
+          written_annotation: string[] | null
+        }
+        Insert: {
+          annotated?: boolean | null
+          annotation?: string | null
+          annotation_array?: number[] | null
+          created_at?: string | null
+          fts?: unknown | null
+          id?: number | null
+          is_annotated?: number | null
+          last_changed?: string | null
+          name?: string | null
+          selected?: boolean | null
+          theme?: string[] | null
+          user_id?: string | null
+          video?: string | null
+          written_annotation?: string[] | null
+        }
+        Update: {
+          annotated?: boolean | null
+          annotation?: string | null
+          annotation_array?: number[] | null
+          created_at?: string | null
+          fts?: unknown | null
+          id?: number | null
+          is_annotated?: number | null
+          last_changed?: string | null
+          name?: string | null
+          selected?: boolean | null
+          theme?: string[] | null
+          user_id?: string | null
+          video?: string | null
+          written_annotation?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "signs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       authorize: {
@@ -781,6 +1003,16 @@ export type Database = {
           has_useful: boolean
         }[]
       }
+      get_sign_interest_count: {
+        Args: {
+          sign_id: number
+          user_id?: string
+        }
+        Returns: {
+          count: number
+          has_interest: boolean
+        }[]
+      }
       update_user_types: {
         Args: {
           types: Database["public"]["CompositeTypes"]["user_type"][]
@@ -789,7 +1021,7 @@ export type Database = {
       }
     }
     Enums: {
-      feature: "howtos" | "events" | "map" | "academy"
+      feature: "dictionary" | "howtos" | "events" | "map" | "academy"
       how_to_difficulty: "easy" | "medium" | "hard"
       how_to_duration: "short" | "medium" | "long"
       moderation_status:
@@ -814,6 +1046,9 @@ export type Database = {
         | "features.update"
         | "branding.update"
         | "user_types.update"
+        | "signs.create"
+        | "signs.update"
+        | "signs.delete"
       user_role: "user" | "moderator" | "admin"
     }
     CompositeTypes: {

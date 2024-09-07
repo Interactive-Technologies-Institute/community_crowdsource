@@ -1,6 +1,6 @@
 import type { User } from '@supabase/supabase-js';
 
-export type Feature = 'map' | 'howtos' | 'events' | 'academy';
+export type Feature = 'dictionary' | 'map' | 'howtos' | 'events' | 'academy';
 
 export type UserRole = 'user' | 'moderator' | 'admin';
 
@@ -94,3 +94,42 @@ export type HowToWithModeration = HowTo & { moderation: ModerationInfo };
 export type EventWithModeration = Event & { moderation: ModerationInfo };
 
 export type MapPinWithModeration = MapPin & { moderation: ModerationInfo };
+
+export type Sign = {
+	annotated: boolean;
+	annotation: AnnotationArray;
+	annotation_array: number[];
+	created_at: string;
+	id: number;
+	is_annotated: number;
+	last_changed: string;
+	name: string;
+	selected: boolean;
+	theme: string[];
+	video: string;
+	written_annotation?: {
+		configuration: string;
+		movement: string[];
+		orientation: string[];
+	}| null;
+	user_id: string;
+};
+
+export type AnnotationArray = {
+	configuration: string[];
+	movement: string[];
+	location: string[];
+	orientation: string[];
+	expression: string[];
+} 
+
+export type Parameter = {
+	id: number;
+	type: string;
+	code: string;
+	name: string | null;
+	is_parent: boolean;
+	children: string[] | null;
+	parent: string | null;
+	image: string | null;
+};
