@@ -6,6 +6,7 @@
 	import Input from '@/components/ui/input/input.svelte';
 	import { writable } from 'svelte/store';
 	import ParameterBox from './_components/ParameterBox.svelte';
+	import { Button } from '@/components/ui/button';
 
 	export let data;
 	
@@ -78,10 +79,10 @@
 	
 </script>
 
-<div class="mx-auto flex items-center justify-center">
-	{#if data}
-		{data.sign.name}
-	{/if}
+
+
+<div class="flex  justify-center py-5">
+	<Button href="./">Sair da anotação</Button>
 </div>
 
 <div>

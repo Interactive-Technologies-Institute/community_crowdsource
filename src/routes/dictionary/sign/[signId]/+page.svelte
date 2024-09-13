@@ -11,6 +11,7 @@
 	import { ThumbsUp } from 'lucide-svelte';
 	import { ThumbsDown } from 'lucide-svelte';
 	import { MessageSquareText } from 'lucide-svelte';
+	import { page } from '$app/stores';
 
 	console.log(data);
 </script>
@@ -170,4 +171,7 @@
 			</div>
 		</ScrollArea>
 	</Card.Root>
+	<div class="flex items-center justify-center py-5">
+		<Button href="{$page.url.pathname}/anotate" >Anotar</Button>
+	</div>
 </div>
